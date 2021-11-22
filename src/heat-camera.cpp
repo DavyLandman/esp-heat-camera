@@ -1,3 +1,22 @@
+/***************************************************************************
+ * This sketch is based on the Adafruit AMG88xx example
+ * https://github.com/adafruit/Adafruit_AMG88xx/blob/master/examples/thermal_cam_interpolate/thermal_cam_interpolate.ino
+ * Davy Landman has added a few functionality, but the license remains the same.
+ * 
+  This is a library for the AMG88xx GridEYE 8x8 IR camera
+  This sketch makes an inetrpolated pixel thermal camera with the 
+  GridEYE sensor and a 2.4" tft featherwing:
+	 https://www.adafruit.com/product/3315
+  Designed specifically to work with the Adafruit AMG8833 Featherwing
+          https://www.adafruit.com/product/3622
+  These sensors use I2C to communicate. The device's I2C address is 0x69
+  Adafruit invests time and resources providing this open source code,
+  please support Adafruit andopen-source hardware by purchasing products
+  from Adafruit!
+  Written by Dean Miller, James DeVito & ladyada for Adafruit Industries.
+  BSD license, all text above must be included in any redistribution
+ ***************************************************************************/
+
 #include <Arduino.h>
 
 #include <TFT_eSPI.h>
@@ -17,7 +36,7 @@ GND => GND
 VIN => 3.3V
 
 screen:
-blk => resistor(bruin-zwart-bruin) => vcc
+blk => resistor(brown-black-brown) => vcc
 cs => d8
 dc => d3
 res => d4
@@ -27,12 +46,6 @@ vcc => 3.3v
 gnd => gnd
 */
 
-
-//low range of the sensor (this will be blue on the screen)
-#define MINTEMP 10
-
-//high range of the sensor (this will be red on the screen)
-#define MAXTEMP 25
 
 //the colors we will be using
 const uint16_t camColors[] = {0x480F,
